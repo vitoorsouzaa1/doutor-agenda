@@ -3,7 +3,6 @@ import {
   uuid,
   pgTable,
   text,
-  varchar,
   timestamp,
   time,
   pgEnum,
@@ -30,12 +29,8 @@ export const clinicsTable = pgTable("clinics", {
 });
 
 export const usersToClinicsTable = pgTable("users_to_clinics", {
-  userId: uuid("user_id").references(() => usersTable.id, {
-    onDelete: "cascade",
-  }),
-  clinicId: uuid("clinic_id").references(() => clinicsTable.id, {
-    onDelete: "cascade",
-  }),
+  userId: uuid("user_id").references(() => usersTable.id),
+  clinicId: uuid("clinic_id").references(() => clinicsTable.id),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at")
     .defaultNow()
@@ -60,7 +55,6 @@ export const clinicsRelationsTable = relations(clinicsTable, ({ many }) => ({
   doctors: many(doctorsTable),
   patients: many(patientsTable),
   appointments: many(appointmentsTable),
-  usersToClinics: many(usersToClinicsTable),
 }));
 
 export const doctorsTable = pgTable("doctors", {
@@ -82,12 +76,16 @@ export const doctorsTable = pgTable("doctors", {
     .$onUpdate(() => new Date()),
 });
 
-export const doctorsRelationsTable = relations(doctorsTable, ({ one }) => ({
-  clinic: one(clinicsTable, {
-    fields: [doctorsTable.clinicId],
-    references: [clinicsTable.id],
+export const doctorsRelationsTable = relations(
+  doctorsTable,
+  ({ many, one }) => ({
+    clinic: one(clinicsTable, {
+      fields: [doctorsTable.clinicId],
+      references: [clinicsTable.id],
+    }),
+    appointments: many(appointmentsTable),
   }),
-}));
+);
 
 export const patientSexEnum = pgEnum("patient_sex", ["male", "female"]);
 
@@ -132,6 +130,10 @@ export const appointmentsTable = pgTable("appointments", {
 export const appointmentsRelationsTable = relations(
   appointmentsTable,
   ({ one }) => ({
+    clinic: one(clinicsTable, {
+      fields: [appointmentsTable.clinicId],
+      references: [clinicsTable.id],
+    }),
     patient: one(patientsTable, {
       fields: [appointmentsTable.patientId],
       references: [patientsTable.id],
