@@ -1,4 +1,4 @@
-"use client ";
+"use client";
 
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
@@ -20,9 +20,11 @@ const AddAppointmentButton = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger asChild>
-        <Plus />
-        <Button>Novo Agendamento</Button>
+      <DialogTrigger>
+        <Button>
+          <Plus />
+          Novo Agendamento
+        </Button>
       </DialogTrigger>
       <UpsertAppointmentForm
         isOpen={isOpen}
