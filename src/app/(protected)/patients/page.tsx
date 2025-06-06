@@ -16,7 +16,8 @@ import { patientsTable } from "@/src/db/schema";
 import { auth } from "@/lib/auth";
 
 import AddPatientButton from "./_components/add-patient-button";
-import PatientCard from "./_components/patient-card";
+import { patientsTableColumns } from "./_components/table-columns";
+import { DataTable } from "@/components/ui/data-table";
 
 const PatientsPage = async () => {
   const session = await auth.api.getSession({
@@ -45,11 +46,7 @@ const PatientsPage = async () => {
         </PageActions>
       </PageHeader>
       <PageContent>
-        <div className="grid grid-cols-3 gap-6">
-          {patients.map((patient) => (
-            <PatientCard key={patient.id} patient={patient} />
-          ))}
-        </div>
+        <DataTable columns={patientsTableColumns} data={patients} />
       </PageContent>
     </PageContainer>
   );
