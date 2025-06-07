@@ -30,6 +30,7 @@ import AppointmentsChart from "./_components/appointments-charts";
 import TopDoctors from "./_components/top-doctors";
 import { Calendar } from "lucide-react";
 import TopSpecialties from "./_components/top-specialties";
+import { getDashboard } from "@/src/data/get-dashboard";
 
 interface DashboardPageProps {
   searchParams: Promise<{
@@ -69,122 +70,20 @@ const DashboardPage = async ({ searchParams }: DashboardPageProps) => {
 
   const clinicId = session.user.clinic.id;
 
-  const [
-    [totalRevenue],
-    [totalAppointments],
-    [totalPatients],
-    [totalDoctors],
+  const {
+    totalRevenue,
+    totalAppointments,
+    totalPatients,
+    totalDoctors,
     topDoctors,
     topSpecialties,
     todayAppointments,
-  ] = await Promise.all([
-    db
-      .select({
-        total: sum(appointmentsTable.appointmentPriceInCents),
-      })
-      .from(appointmentsTable)
-      .where(
-        and(
-          eq(appointmentsTable.clinicId, clinicId),
-          gte(appointmentsTable.date, new Date(from)),
-          lte(appointmentsTable.date, new Date(to)),
-        ),
-      ),
-    db
-      .select({
-        total: count(),
-      })
-      .from(appointmentsTable)
-      .where(
-        and(
-          eq(appointmentsTable.clinicId, clinicId),
-          gte(appointmentsTable.date, new Date(from)),
-          lte(appointmentsTable.date, new Date(to)),
-        ),
-      ),
-    db
-      .select({
-        total: count(),
-      })
-      .from(patientsTable)
-      .where(eq(patientsTable.clinicId, clinicId)),
-    db
-      .select({
-        total: count(),
-      })
-      .from(doctorsTable)
-      .where(eq(doctorsTable.clinicId, clinicId)),
-    db
-      .select({
-        id: doctorsTable.id,
-        name: doctorsTable.name,
-        avatarImageUrl: doctorsTable.avatarImageUrl,
-        specialty: doctorsTable.specialty,
-        appointments: count(appointmentsTable.id),
-      })
-      .from(doctorsTable)
-      .leftJoin(
-        appointmentsTable,
-        and(
-          eq(appointmentsTable.doctorId, doctorsTable.id),
-          gte(appointmentsTable.date, new Date(from)),
-          lte(appointmentsTable.date, new Date(to)),
-        ),
-      )
-      .where(eq(doctorsTable.clinicId, clinicId))
-      .groupBy(doctorsTable.id)
-      .orderBy(desc(count(appointmentsTable.id)))
-      .limit(10),
-    db
-      .select({
-        specialty: doctorsTable.specialty,
-        appointments: count(appointmentsTable.id),
-      })
-      .from(appointmentsTable)
-      .innerJoin(doctorsTable, eq(appointmentsTable.doctorId, doctorsTable.id))
-      .where(
-        and(
-          eq(appointmentsTable.clinicId, clinicId),
-          gte(appointmentsTable.date, new Date(from)),
-          lte(appointmentsTable.date, new Date(to)),
-        ),
-      )
-      .groupBy(doctorsTable.specialty)
-      .orderBy(desc(count(appointmentsTable.id))),
-    db.query.appointmentsTable.findMany({
-      where: and(
-        eq(appointmentsTable.clinicId, clinicId),
-        gte(appointmentsTable.date, new Date()),
-        lte(appointmentsTable.date, new Date()),
-      ),
-      with: {
-        patient: true,
-        doctor: true,
-      },
-    }),
-  ]);
-
-  const chartStartDate = dayjs().subtract(10, "days").startOf("day").toDate();
-  const chartEndDate = dayjs().add(10, "days").endOf("day").toDate();
-
-  const dailyAppointments = await db
-    .select({
-      date: sql<string>`DATE(${appointmentsTable.date})`.as("date"),
-      appointments: count(appointmentsTable.id),
-      revenue:
-        sql<number>`COALESCE(SUM(${appointmentsTable.appointmentPriceInCents}), 0)`.as(
-          "revenue",
-        ),
-    })
-    .from(appointmentsTable)
-    .where(
-      and(
-        gte(appointmentsTable.date, chartStartDate),
-        lte(appointmentsTable.date, chartEndDate),
-      ),
-    )
-    .groupBy(sql`DATE(${appointmentsTable.date})`)
-    .orderBy(sql`DATE(${appointmentsTable.date})`);
+    dailyAppointmentsData,
+  } = await getDashboard({
+    from,
+    to,
+    session: { user: { clinic: { id: clinicId } } },
+  });
 
   return (
     <PageContainer>
@@ -205,7 +104,7 @@ const DashboardPage = async ({ searchParams }: DashboardPageProps) => {
           totalDoctors={totalDoctors.total}
         />
         <div className="grid grid-cols-[2.25fr_1fr] gap-4">
-          <AppointmentsChart dailyAppointmentsData={dailyAppointments} />
+          <AppointmentsChart dailyAppointmentsData={dailyAppointmentsData} />
           <TopDoctors doctors={topDoctors} />
         </div>
         <div className="grid grid-cols-1 gap-4">
