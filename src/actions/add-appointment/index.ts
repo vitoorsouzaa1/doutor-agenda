@@ -11,7 +11,7 @@ import { actionClient } from "@/lib/next-safe-action";
 
 import { addAppointmentSchema } from "./schema";
 
-export const upsertAppointment = actionClient
+export const addAppointment = actionClient
   .schema(addAppointmentSchema)
   .action(async ({ parsedInput }) => {
     const session = await auth.api.getSession({

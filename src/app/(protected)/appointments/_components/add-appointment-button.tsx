@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { useState } from "react";
-import UpsertAppointmentForm from "./upsert-appointment-form";
+import AddAppointmentForm from "./add-appointment-form";
 import { doctorsTable, patientsTable } from "@/src/db/schema";
 import { Plus } from "lucide-react";
 
@@ -20,13 +20,13 @@ const AddAppointmentButton = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger>
-        <Button>
+      <DialogTrigger asChild>
+        <Button variant="outline">
           <Plus />
           Novo Agendamento
         </Button>
       </DialogTrigger>
-      <UpsertAppointmentForm
+      <AddAppointmentForm
         isOpen={isOpen}
         patients={patients}
         doctors={doctors}

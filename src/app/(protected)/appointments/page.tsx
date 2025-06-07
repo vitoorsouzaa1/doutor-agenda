@@ -16,6 +16,7 @@ import { doctorsTable, patientsTable } from "@/src/db/schema";
 import { auth } from "@/lib/auth";
 
 import AddAppointmentButton from "./_components/add-appointment-button";
+import AddAppointmentForm from "./_components/add-appointment-form";
 
 const AppointmentsPage = async () => {
   const session = await auth.api.getSession({
@@ -51,9 +52,11 @@ const AppointmentsPage = async () => {
         </PageActions>
       </PageHeader>
       <PageContent>
-        <div className="text-muted-foreground py-8 text-center">
-          Listagem de agendamentos será implementada em breve
-        </div>
+        <AddAppointmentForm
+          patients={patients}
+          doctors={doctors}
+          isOpen={true}
+        />
       </PageContent>
     </PageContainer>
   );
