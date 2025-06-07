@@ -16,7 +16,7 @@ O Doutor Agenda é uma solução completa para gestão de clínicas médicas que
 - 💰 **Controle Financeiro**: Acompanhamento de receitas e pagamentos
 - 🔒 **Segurança**: Autenticação Google e controle de acesso por perfil
 
-[Ver demonstração]([ttps://doutor-agenda-pi.vercel.app/])
+[Ver demonstração](https://doutor-agenda-pi.vercel.app/)
 
 ## 🌟 Funcionalidades
 
