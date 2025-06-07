@@ -314,8 +314,12 @@ const AddAppointmentForm = ({
                       <SelectItem value="17:00">17:00</SelectItem>
                       {availableTimes?.data?.map((time) => {
                         return (
-                          <SelectItem key={time.value} value={time.value}>
-                            {time.label}
+                          <SelectItem
+                            key={time.value}
+                            value={time.value}
+                            disabled={!time.available}
+                          >
+                            {time.label} {!time.available && "(Indisponível)"}
                           </SelectItem>
                         );
                       })}
