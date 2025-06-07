@@ -1,8 +1,10 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
+import dayjs from "dayjs";
 import { CalendarIcon } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { useEffect } from "react";
@@ -12,6 +14,7 @@ import { toast } from "sonner";
 import { z } from "zod";
 
 import { addAppointment } from "@/src/actions/add-appointment";
+import { getAvailableTimes } from "@/src/actions/get-available-times";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -89,14 +92,23 @@ const AddAppointmentForm = ({
     },
   });
 
-  const watchedDoctorId = form.watch("doctorId");
-  const watchedPatientId = form.watch("patientId");
+  const selectedDoctorId = form.watch("doctorId");
+  const selectedPatientId = form.watch("patientId");
+  const selectedDate = form.watch("date");
 
-  // Atualizar o preço quando o médico for selecionado
+  const { data: availableTimes } = useQuery({
+    queryKey: ["available-times", selectedDate, selectedDoctorId],
+    queryFn: () =>
+      getAvailableTimes({
+        date: dayjs(selectedDate).format("YYYY-MM-DD"),
+        doctorId: selectedDoctorId,
+      }),
+  });
+
   useEffect(() => {
-    if (watchedDoctorId) {
+    if (selectedDoctorId) {
       const selectedDoctor = doctors.find(
-        (doctor) => doctor.id === watchedDoctorId,
+        (doctor) => doctor.id === selectedDoctorId,
       );
       if (selectedDoctor) {
         form.setValue(
@@ -105,7 +117,7 @@ const AddAppointmentForm = ({
         );
       }
     }
-  }, [watchedDoctorId, doctors, form]);
+  }, [selectedDoctorId, doctors, form]);
 
   useEffect(() => {
     if (isOpen) {
@@ -136,7 +148,7 @@ const AddAppointmentForm = ({
     });
   };
 
-  const isDateTimeEnabled = watchedPatientId && watchedDoctorId;
+  const isDateTimeEnabled = selectedPatientId && selectedDoctorId;
 
   return (
     <Dialog>
@@ -223,7 +235,7 @@ const AddAppointmentForm = ({
                     thousandSeparator="."
                     prefix="R$ "
                     allowNegative={false}
-                    disabled={!watchedDoctorId}
+                    disabled={!selectedDoctorId}
                     customInput={Input}
                   />
                   <FormMessage />
@@ -284,7 +296,7 @@ const AddAppointmentForm = ({
                   <Select
                     onValueChange={field.onChange}
                     defaultValue={field.value}
-                    disabled={!isDateTimeEnabled}
+                    disabled={!isDateTimeEnabled || !selectedDate}
                   >
                     <FormControl>
                       <SelectTrigger className="w-full">
@@ -300,6 +312,13 @@ const AddAppointmentForm = ({
                       <SelectItem value="15:00">15:00</SelectItem>
                       <SelectItem value="16:00">16:00</SelectItem>
                       <SelectItem value="17:00">17:00</SelectItem>
+                      {availableTimes?.data?.map((time) => {
+                        return (
+                          <SelectItem key={time.value} value={time.value}>
+                            {time.label}
+                          </SelectItem>
+                        );
+                      })}
                     </SelectContent>
                   </Select>
                   <FormMessage />

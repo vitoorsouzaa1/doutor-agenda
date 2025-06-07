@@ -1,13 +1,15 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { useState } from "react";
-import AddAppointmentForm from "./add-appointment-form";
-import { doctorsTable, patientsTable } from "@/src/db/schema";
 import { Plus } from "lucide-react";
 
-interface UpsertAppointmentFormProps {
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogTrigger } from "@/components/ui/dialog";
+import { doctorsTable, patientsTable } from "@/src/db/schema";
+
+import AddAppointmentForm from "./add-appointment-form";
+
+interface AddAppointmentButtonProps {
   patients: (typeof patientsTable.$inferSelect)[];
   doctors: (typeof doctorsTable.$inferSelect)[];
 }
@@ -15,15 +17,15 @@ interface UpsertAppointmentFormProps {
 const AddAppointmentButton = ({
   patients,
   doctors,
-}: UpsertAppointmentFormProps) => {
+}: AddAppointmentButtonProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline">
+        <Button>
           <Plus />
-          Novo Agendamento
+          Novo agendamento
         </Button>
       </DialogTrigger>
       <AddAppointmentForm
