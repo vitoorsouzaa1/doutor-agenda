@@ -1,11 +1,21 @@
 import { EditIcon, MoreVerticalIcon, TrashIcon } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { useState } from "react";
+import { toast } from "sonner";
 
 import { deletePatient } from "@/src/actions/delete-patient";
-
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { toast } from "sonner";
 import { Dialog } from "@/components/ui/dialog";
 import {
   DropdownMenu,
@@ -18,17 +28,6 @@ import {
 import { patientsTable } from "@/src/db/schema";
 
 import UpsertPatientForm from "./upsert-patient-form";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
 
 interface PatientsTableActionsProps {
   patient: typeof patientsTable.$inferSelect;
@@ -36,17 +35,18 @@ interface PatientsTableActionsProps {
 
 const PatientsTableActions = ({ patient }: PatientsTableActionsProps) => {
   const [upsertDialogIsOpen, setUpsertDialogIsOpen] = useState(false);
+
   const deletePatientAction = useAction(deletePatient, {
     onSuccess: () => {
-      toast.success("Paciente deletado com sucesso");
+      toast.success("Paciente deletado com sucesso.");
     },
     onError: () => {
-      toast.error("Erro ao deletar paciente");
+      toast.error("Erro ao deletar paciente.");
     },
   });
 
-  const handleDeletePatient = () => {
-    if (!patient.id) return;
+  const handleDeletePatientClick = () => {
+    if (!patient) return;
     deletePatientAction.execute({ id: patient.id });
   };
 
@@ -85,7 +85,7 @@ const PatientsTableActions = ({ patient }: PatientsTableActionsProps) => {
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                   <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                  <AlertDialogAction onClick={handleDeletePatient}>
+                  <AlertDialogAction onClick={handleDeletePatientClick}>
                     Deletar
                   </AlertDialogAction>
                 </AlertDialogFooter>

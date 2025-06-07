@@ -10,20 +10,15 @@ import UpsertPatientForm from "./upsert-patient-form";
 
 const AddPatientButton = () => {
   const [isOpen, setIsOpen] = useState(false);
-
-  const handleSuccess = () => {
-    setIsOpen(false);
-  };
-
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button>
-          <Plus className="mr-2 h-4 w-4" />
+          <Plus />
           Adicionar paciente
         </Button>
       </DialogTrigger>
-      <UpsertPatientForm onSuccess={handleSuccess} isOpen={isOpen} />
+      <UpsertPatientForm onSuccess={() => setIsOpen(false)} isOpen={isOpen} />
     </Dialog>
   );
 };

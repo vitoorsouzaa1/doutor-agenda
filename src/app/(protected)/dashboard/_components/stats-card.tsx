@@ -1,20 +1,26 @@
-import { Card, CardTitle, CardContent, CardHeader } from "@/components/ui/card";
-import { formatCurrencyInCents } from "@/src/helpers/currency";
-import { CalendarIcon, DollarSignIcon, Icon, UserIcon } from "lucide-react";
+import {
+  CalendarIcon,
+  DollarSignIcon,
+  UserIcon,
+  UsersIcon,
+} from "lucide-react";
 
-interface StatsCardProps {
-  totalRevenue: number;
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { formatCurrencyInCents } from "@/src/helpers/currency";
+
+interface StatsCardsProps {
+  totalRevenue: number | null;
   totalAppointments: number;
   totalPatients: number;
   totalDoctors: number;
 }
 
-const StatsCard = ({
+const StatsCards = ({
   totalRevenue,
   totalAppointments,
   totalPatients,
   totalDoctors,
-}: StatsCardProps) => {
+}: StatsCardsProps) => {
   const stats = [
     {
       title: "Faturamento",
@@ -22,19 +28,19 @@ const StatsCard = ({
       icon: DollarSignIcon,
     },
     {
-      title: "Total de agendamentos",
+      title: "Agendamentos",
       value: totalAppointments.toString(),
       icon: CalendarIcon,
     },
     {
-      title: "Total de pacientes",
+      title: "Pacientes",
       value: totalPatients.toString(),
       icon: UserIcon,
     },
     {
-      title: "Total de médicos",
+      title: "Médicos",
       value: totalDoctors.toString(),
-      icon: UserIcon,
+      icon: UsersIcon,
     },
   ];
 
@@ -62,4 +68,4 @@ const StatsCard = ({
   );
 };
 
-export default StatsCard;
+export default StatsCards;

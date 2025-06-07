@@ -1,6 +1,6 @@
-import { ReactQueryProvider } from "@/src/providers/react-query";
-import { AppSidebar } from "./_components/app-sidebar";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+
+import { AppSidebar } from "./_components/app-sidebar";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -8,7 +8,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <AppSidebar />
       <main className="w-full">
         <SidebarTrigger />
-        <ReactQueryProvider>{children}</ReactQueryProvider>
+        {children}
       </main>
     </SidebarProvider>
   );
