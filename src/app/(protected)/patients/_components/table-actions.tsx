@@ -3,7 +3,6 @@ import { useAction } from "next-safe-action/hooks";
 import { useState } from "react";
 import { toast } from "sonner";
 
-import { deletePatient } from "@/src/actions/delete-patient";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -25,6 +24,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { deletePatient } from "@/src/actions/delete-patient";
 import { patientsTable } from "@/src/db/schema";
 
 import UpsertPatientForm from "./upsert-patient-form";

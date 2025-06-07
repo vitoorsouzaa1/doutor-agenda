@@ -1,6 +1,23 @@
 # Doutor Agenda
 
-Doutor Agenda é uma plataforma moderna de gestão de clínicas médicas, desenvolvida para otimizar o agendamento de consultas e a administração do dia a dia de profissionais de saúde.
+Sistema de gestão para clínicas médicas e consultórios, desenvolvido com tecnologias modernas para simplificar o dia a dia de profissionais de saúde.
+
+![GitHub](https://img.shields.io/github/license/seu-usuario/doutor-agenda)
+![Next.js](https://img.shields.io/badge/Next.js-14-black)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
+
+## 📌 Sobre
+
+O Doutor Agenda é uma solução completa para gestão de clínicas médicas que oferece:
+
+- 🏥 **Gestão de Clínicas**: Controle múltiplos consultórios em uma única plataforma
+- 👨‍⚕️ **Gestão de Médicos**: Cadastre médicos e gerencie suas agendas
+- 📅 **Agendamentos**: Sistema intuitivo de marcação de consultas
+- 📊 **Dashboard**: Métricas e relatórios em tempo real
+- 💰 **Controle Financeiro**: Acompanhamento de receitas e pagamentos
+- 🔒 **Segurança**: Autenticação Google e controle de acesso por perfil
+
+[Ver demonstração](https://demo.doutoragenda.com.br)
 
 ## 🌟 Funcionalidades
 

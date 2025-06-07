@@ -10,7 +10,6 @@ import { useAction } from "next-safe-action/hooks";
 import { useState } from "react";
 import { toast } from "sonner";
 
-import { deleteDoctor } from "@/src/actions/delete-doctor";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -33,6 +32,7 @@ import {
 } from "@/components/ui/card";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { Separator } from "@/components/ui/separator";
+import { deleteDoctor } from "@/src/actions/delete-doctor";
 import { doctorsTable } from "@/src/db/schema";
 import { formatCurrencyInCents } from "@/src/helpers/currency";
 

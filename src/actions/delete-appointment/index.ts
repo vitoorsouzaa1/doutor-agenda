@@ -5,10 +5,10 @@ import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
 import { z } from "zod";
 
-import { db } from "@/src/db";
-import { appointmentsTable } from "@/src/db/schema";
 import { auth } from "@/lib/auth";
 import { actionClient } from "@/lib/next-safe-action";
+import { db } from "@/src/db";
+import { appointmentsTable } from "@/src/db/schema";
 
 export const deleteAppointment = actionClient
   .schema(

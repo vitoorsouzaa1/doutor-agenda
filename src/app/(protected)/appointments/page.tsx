@@ -12,13 +12,13 @@ import {
   PageHeaderContent,
   PageTitle,
 } from "@/components/ui/page-container";
+import { auth } from "@/lib/auth";
 import { db } from "@/src/db";
 import {
   appointmentsTable,
   doctorsTable,
   patientsTable,
 } from "@/src/db/schema";
-import { auth } from "@/lib/auth";
 
 import AddAppointmentButton from "./_components/add-appointment-button";
 import { appointmentsTableColumns } from "./_components/table-columns";

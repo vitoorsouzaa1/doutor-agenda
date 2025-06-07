@@ -8,8 +8,18 @@ import {
   Stethoscope,
   UserRound,
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import {
   Sidebar,
   SidebarContent,
@@ -22,17 +32,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import Image from "next/image";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
 import { authClient } from "@/lib/auth-client";
-import { usePathname, useRouter } from "next/navigation";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 // Menu items.
 const items = [

@@ -1,36 +1,31 @@
-import { auth } from "@/lib/auth";
+import dayjs from "dayjs";
+import { eq } from "drizzle-orm";
+import { Calendar } from "lucide-react";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
-import { usersToClinicsTable } from "@/src/db/schema";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { DataTable } from "@/components/ui/data-table";
 import {
   PageActions,
   PageContainer,
+  PageContent,
   PageDescription,
   PageHeader,
   PageHeaderContent,
   PageTitle,
-  PageContent,
 } from "@/components/ui/page-container";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { DataTable } from "@/components/ui/data-table";
-import { sum, and, count, eq, lte, gte, sql, desc } from "drizzle-orm";
+import { auth } from "@/lib/auth";
+import { getDashboard } from "@/src/data/get-dashboard";
 import { db } from "@/src/db";
-import {
-  appointmentsTable,
-  patientsTable,
-  doctorsTable,
-} from "@/src/db/schema";
-import { DatePicker } from "./_components/date-picker";
+import { usersToClinicsTable } from "@/src/db/schema";
 
 import { appointmentsTableColumns } from "../appointments/_components/table-columns";
-import dayjs from "dayjs";
-import StatsCard from "./_components/stats-card";
 import AppointmentsChart from "./_components/appointments-charts";
+import { DatePicker } from "./_components/date-picker";
+import StatsCard from "./_components/stats-card";
 import TopDoctors from "./_components/top-doctors";
-import { Calendar } from "lucide-react";
 import TopSpecialties from "./_components/top-specialties";
-import { getDashboard } from "@/src/data/get-dashboard";
 
 interface DashboardPageProps {
   searchParams: Promise<{

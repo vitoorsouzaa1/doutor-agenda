@@ -5,7 +5,7 @@ import { eq } from "drizzle-orm";
 
 import { db } from "@/src/db";
 import * as schema from "@/src/db/schema";
-import { usersToClinicsTable, usersTable } from "@/src/db/schema";
+import { usersTable,usersToClinicsTable } from "@/src/db/schema";
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {

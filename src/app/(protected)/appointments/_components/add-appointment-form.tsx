@@ -13,8 +13,6 @@ import { NumericFormat } from "react-number-format";
 import { toast } from "sonner";
 import { z } from "zod";
 
-import { addAppointment } from "@/src/actions/add-appointment";
-import { getAvailableTimes } from "@/src/actions/get-available-times";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -46,8 +44,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { doctorsTable, patientsTable } from "@/src/db/schema";
 import { cn } from "@/lib/utils";
+import { addAppointment } from "@/src/actions/add-appointment";
+import { getAvailableTimes } from "@/src/actions/get-available-times";
+import { doctorsTable, patientsTable } from "@/src/db/schema";
 
 const formSchema = z.object({
   patientId: z.string().min(1, {

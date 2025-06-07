@@ -4,7 +4,6 @@ import { MoreVerticalIcon, TrashIcon } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { toast } from "sonner";
 
-import { deleteAppointment } from "@/src/actions/delete-appointment";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -25,6 +24,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { deleteAppointment } from "@/src/actions/delete-appointment";
 import { appointmentsTable } from "@/src/db/schema";
 
 type AppointmentWithRelations = typeof appointmentsTable.$inferSelect & {

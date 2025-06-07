@@ -7,11 +7,11 @@ import { eq } from "drizzle-orm";
 import { headers } from "next/headers";
 import { z } from "zod";
 
+import { auth } from "@/lib/auth";
+import { actionClient } from "@/lib/next-safe-action";
 import { db } from "@/src/db";
 import { appointmentsTable, doctorsTable } from "@/src/db/schema";
 import { generateTimeSlots } from "@/src/helpers/time";
-import { auth } from "@/lib/auth";
-import { actionClient } from "@/lib/next-safe-action";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);

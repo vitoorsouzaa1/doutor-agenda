@@ -12,9 +12,9 @@ import {
   PageHeaderContent,
   PageTitle,
 } from "@/components/ui/page-container";
+import { auth } from "@/lib/auth";
 import { db } from "@/src/db";
 import { patientsTable } from "@/src/db/schema";
-import { auth } from "@/lib/auth";
 
 import AddPatientButton from "./_components/add-patient-button";
 import { patientsTableColumns } from "./_components/table-columns";

@@ -8,7 +8,6 @@ import { PatternFormat } from "react-number-format";
 import { toast } from "sonner";
 import { z } from "zod";
 
-import { upsertPatient } from "@/src/actions/upsert-patient";
 import { Button } from "@/components/ui/button";
 import {
   DialogContent,
@@ -33,6 +32,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { upsertPatient } from "@/src/actions/upsert-patient";
 import { patientsTable } from "@/src/db/schema";
 
 const formSchema = z.object({

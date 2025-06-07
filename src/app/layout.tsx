@@ -1,9 +1,11 @@
+import "./globals.css";
+
 import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
-import "./globals.css";
-import { Toaster } from "sonner";
-import { ReactQueryProvider } from "../providers/react-query";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
+import { Toaster } from "sonner";
+
+import { ReactQueryProvider } from "../providers/react-query";
 
 const manrope = Manrope({
   subsets: ["latin"],
