@@ -2,8 +2,7 @@
 
 Sistema de gestão para clínicas médicas e consultórios, desenvolvido com tecnologias modernas para simplificar o dia a dia de profissionais de saúde.
 
-![GitHub](https://img.shields.io/github/license/seu-usuario/doutor-agenda)
-![Next.js](https://img.shields.io/badge/Next.js-14-black)
+![Next.js](https://img.shields.io/badge/Next.js-15-black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
 
 ## 📌 Sobre
@@ -17,7 +16,7 @@ O Doutor Agenda é uma solução completa para gestão de clínicas médicas que
 - 💰 **Controle Financeiro**: Acompanhamento de receitas e pagamentos
 - 🔒 **Segurança**: Autenticação Google e controle de acesso por perfil
 
-[Ver demonstração](https://demo.doutoragenda.com.br)
+[Ver demonstração]([ttps://doutor-agenda-pi.vercel.app/])
 
 ## 🌟 Funcionalidades
 
